@@ -14,15 +14,16 @@ func Sample[T any](src []T, k int)[]T{
 	return result
 }
 
-func GenerateParent(length int64,geneSet[]string{}){
-	var gene []string{}
+func GenerateParent[T any](length int64,geneSet[]T) []T{
+	var gene []T{}
 	for {
 		if len(gene)>length{
 			break
 		} else{
 			sampleSize:=math.Min(length-(len(gene)),len(geneSet))
-			gene=append(gene, )
+			gene=append(gene, Sample(geneSet, sampleSize))
 		}
 		
 	}
+	return gene
 }

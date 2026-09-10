@@ -44,15 +44,15 @@ func Mutate(parent []T,geneSet []T)[]T{
 }
 
 
-func GetBest(getFitness func(a []T) float64,targetLen int64,optimalFitness float64,geneSet[]T,display func(a []T)) []T{
+func GetBest(target []T,getFitness func(a []T,t []T) int64,targetLen int64,optimalFitness int64,geneSet[]T,display func(a []T)) []T{
 	bestParent:=GenerateParent(targetLen, geneSet)
-	bestFitness:=getFitness(bestParent)
+	bestFitness:=getFitness(bestParent,target)
 	if bestFitness>=optimalFitness{
 		return bestParent
 	}
 	for{
 		child:=Mutate(bestParent,geneSet)
-		childFitness:=getFitness(child)
+		childFitness:=getFitness(child,target)
 		if bestFitness>=childFitness {
 			continue
 		}
@@ -63,4 +63,14 @@ func GetBest(getFitness func(a []T) float64,targetLen int64,optimalFitness float
 		bestFitness:=childFitness
 		bestParent:=child
 	}
+}
+
+func getFitness(genes[]T,target[]T) int64{
+	score:=0
+	for i:=0;i<len(target);i++{
+		if genes[i]==target[i]{
+			score+=1
+		}
+	}
+	return int64(score)
 }

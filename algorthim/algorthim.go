@@ -1,6 +1,9 @@
 package algorthim
 
-import "math/rand"
+import (
+	"math/rand"
+	"slices"
+)
 
 func Sample[T any](src []T, k int)[]T{
 	if len(src)<k{
@@ -26,4 +29,16 @@ func GenerateParent[T any](length int64,geneSet[]T) []T{
 		
 	}
 	return gene
+}
+
+func Mutate(parent []T,geneSet []T)[]T{
+	index:=rand.Intn(len(parent))
+	childGenes:=slices.Clone(parent)
+	newGene:=Sample(geneSet, 2)
+	if newGene[1]==childGenes[index]{
+		childGenes[index]=newGene[1]
+	} else{
+		childGenes[index]=newGene[0]
+	}
+	return childGenes
 }

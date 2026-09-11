@@ -1,8 +1,10 @@
 package algorthim
 
 import (
+	"fmt"
 	"math/rand"
 	"slices"
+	"time"
 )
 
 func Sample[T any](src []T, k int)[]T{
@@ -65,7 +67,7 @@ func GetBest(target []T,getFitness func(a []T,t []T) int64,targetLen int64,optim
 	}
 }
 
-func getFitness(genes[]T,target[]T) int64{
+func GetFitness(genes[]T,target[]T) int64{
 	score:=0
 	for i:=0;i<len(target);i++{
 		if genes[i]==target[i]{
@@ -73,4 +75,10 @@ func getFitness(genes[]T,target[]T) int64{
 		}
 	}
 	return int64(score)
+}
+
+func Display(genes[]T,target[]T,t time.Time){
+	timeDiff:=time.Now()-t
+	fitness:=getFitness(genes,target)
+	fmt.Println(fitness,timeDiff)
 }

@@ -3,8 +3,8 @@ import random
 
 def _generate_parent(length, geneSet):
     genes = []
-    while len(geneSet) < length:
-        sampleSize = min(length - len(geneSet), len(geneSet))
+    while len(genes) < length:
+        sampleSize = min(length - len(genes), len(geneSet))
         genes.extend(random.sample(geneSet, sampleSize))
     return "".join(genes)
 
@@ -14,7 +14,7 @@ def _mutate(parent, geneSet):
     childgenes = list(parent)
     newgene, alternative = random.sample(geneSet, 2)
     childgenes[index] = alternative if newgene == childgenes[index] else newgene
-    return childgenes
+    return "".join(childgenes)
 
 
 def get_best(get_fitness, target_length, optimal_fitness, geneSet, display):
